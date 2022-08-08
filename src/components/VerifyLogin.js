@@ -28,7 +28,7 @@ const VerifyLogin=()=>{
                 M.toast({html: 'Invalid OTP',classes:'#f44336 red'})
                 navigate('/api/auth/login')
             } 
-            setCode(0);          
+            setCode("");          
         }).catch((e)=>{
             console.log("Internal Server error");
         })

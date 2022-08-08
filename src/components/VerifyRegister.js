@@ -23,7 +23,7 @@ const VerifyRegister=()=>{
                 M.toast({html: 'Invalid OTP',classes:'#f44336 red'})
                 navigate('/api/auth/register')
             } 
-            setCode(0);          
+            setCode("");          
         }).catch((e)=>{
             console.log("Internal Server error");
         })

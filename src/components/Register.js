@@ -5,10 +5,10 @@ import axios from 'axios'
 const Register=()=>{
     const navigate=useNavigate()
     const [username,setUsername]=useState("")
-    const [phone,setPhone]=useState(0)
+    const [phone,setPhone]=useState("")
     const [position,setPosition]=useState({
-        lat:0,
-        long:0
+        lat:"",
+        long:""
     })
     useEffect(()=>{
         if(position.lat!==0){
@@ -28,7 +28,8 @@ const Register=()=>{
                     navigate(`/api/auth/verifyRegister/${phone}`)
                     console.log("Data submitted");
                 } 
-                setPhone(0);          
+                setPhone("");
+                setPosition({lat:"",long:""})          
             }).catch((e)=>{
                 console.log("Internal Server error");
             });

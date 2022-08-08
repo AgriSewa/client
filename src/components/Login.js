@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const Login=()=>{
     const navigate=useNavigate()
-    const [phone,setPhone]=useState(0)
+    const [phone,setPhone]=useState("")
     const submit=(e)=>{
         e.preventDefault()
         axios({
@@ -14,7 +14,7 @@ const Login=()=>{
         }).then((res)=>{ 
             if(res.data.success) {
                 navigate(`/api/auth/verifyLogin/${phone}`)
-                setPhone(0); 
+                setPhone(""); 
                 console.log("Data submitted");
             }                          
         }).catch((e)=>{
