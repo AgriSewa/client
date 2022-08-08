@@ -8,12 +8,12 @@ const Login=()=>{
     const submit=(e)=>{
         e.preventDefault()
         axios({
-            url:'/login',
+            url:'/api/auth/login',
             method:'POST',
             data: {phone:phone}
         }).then((res)=>{ 
             if(res.data.success) {
-                navigate(`/verifyLogin/${phone}`)
+                navigate(`/api/auth/verifyLogin/${phone}`)
                 setPhone(0); 
                 console.log("Data submitted");
             }                          
@@ -29,7 +29,7 @@ const Login=()=>{
                     <input type="number" placeholder='Phone Number' value={phone} onChange={(e)=>setPhone(e.target.value)} required />
                     <button className="btn waves-effect waves-light #2b67ab blue darken-3" type="submit">Login</button>
                 </form>
-                <br/><h7><Link to="/register">Don't have an account(Register)</Link></h7>
+                <br/><h7><Link to="/api/auth/register">Don't have an account(Register)</Link></h7>
             </div>
         </div>
     )

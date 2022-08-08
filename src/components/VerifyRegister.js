@@ -10,18 +10,18 @@ const VerifyRegister=()=>{
     const submit=(e)=>{
         e.preventDefault()
         axios({
-            url:`/verifyRegister/${phone}`,
+            url:`/api/auth/verifyRegister/${phone}`,
             method:'POST',
             data: {code:code}
         }).then((res)=>{
             if(res.data.success) {
                 M.toast({html: res.data.message,classes:'#64dd17 light-green accent-4'})
-                navigate('/login')
+                navigate('/api/auth/login')
                 console.log("Data submitted");
             }
             else {                
                 M.toast({html: 'Invalid OTP',classes:'#f44336 red'})
-                navigate('/register')
+                navigate('/api/auth/register')
             } 
             setCode(0);          
         }).catch((e)=>{

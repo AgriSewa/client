@@ -12,7 +12,7 @@ const VerifyLogin=()=>{
     const submit=(e)=>{
         e.preventDefault()
         axios({
-            url:`/verifyLogin/${phone}`,
+            url:`/api/auth/verifyLogin/${phone}`,
             method:'POST',
             data: {code:code}
         }).then((res)=>{
@@ -26,7 +26,7 @@ const VerifyLogin=()=>{
             }
             else {                
                 M.toast({html: 'Invalid OTP',classes:'#f44336 red'})
-                navigate('/login')
+                navigate('/api/auth/login')
             } 
             setCode(0);          
         }).catch((e)=>{

@@ -12,21 +12,21 @@ const NavBar=()=>{
                 <li><button className="btn waves-effect waves-light #f44336 red" style={{marginRight:'10px'}} onClick={()=>{
                     localStorage.clear()
                     dispatch({type:'CLEAR'})
-                    navigate('/login')
+                    navigate('/api/auth/login')
                 }}>Logout</button></li>
             ]
         }
         else{
             return [
-                <li><Link to="/login">Login</Link></li>,
-                <li><Link to="/register">Register</Link></li>
+                <li><Link to="/api/auth/login">Login</Link></li>,
+                <li><Link to="/api/auth/register">Register</Link></li>
             ]
         }
     }
     return(
         <nav>
             <div className="nav-wrapper black">
-                <Link to={state?"/":'/login'} className="brand-logo left" style={{marginLeft:"10px"}}>AgriSewa</Link>
+                <Link to={state?"/":'/api/auth/login'} className="brand-logo left" style={{marginLeft:"10px"}}>AgriSewa</Link>
                 <ul id="nav-mobile" className="right">
                     {renderList()}
                 </ul>

@@ -3,6 +3,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import VerifyRegister from './components/VerifyRegister'
 import VerifyLogin from './components/VerifyLogin'
+import NavBar from './components/Navbar' 
 import './App.css'
 import { BrowserRouter,Routes,Route,useNavigate } from 'react-router-dom'
 import {reducer,initialState} from './reducer/userReducer'
@@ -18,16 +19,16 @@ const Routings=()=>{
       dispatch({type:'USER',payload:user})
     }      
     else 
-      navigate('/login')
+      navigate('/api/auth/login')
   },[])
   return(
     <>  
         <Routes>
           {/* <Route exact path='/' element={<Home />}></Route> */}
-          <Route exact path='/login' element={<Login />}></Route>
-          <Route exact path='/register' element={<Register />}></Route>
-          <Route exact path='/verifyRegister/:phone' element={<VerifyRegister />}></Route>
-          <Route exact path='/verifyLogin/:phone' element={<VerifyLogin />}></Route>
+          <Route exact path='/api/auth/login' element={<Login />}></Route>
+          <Route exact path='/api/auth/register' element={<Register />}></Route>
+          <Route exact path='/api/auth/verifyRegister/:phone' element={<VerifyRegister />}></Route>
+          <Route exact path='/api/auth/verifyLogin/:phone' element={<VerifyLogin />}></Route>
         </Routes>
     </>
   )     
