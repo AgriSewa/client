@@ -11,6 +11,10 @@ const Register=()=>{
         long:""
     })
     useEffect(()=>{
+    if (localStorage.getItem("user")) {
+      navigate("/");
+    }
+  
         if(position.lat!==0){
             const d={
                 username:username,

@@ -1,17 +1,16 @@
-import React,{useContext} from 'react'
+import React from 'react'
 import { Link,useNavigate } from 'react-router-dom';
-import {UserContext} from '../App'
+
 
 const NavBar=()=>{
     const navigate=useNavigate()
-    const {state,dispatch}=useContext(UserContext)
+   
     const renderList=()=>{
-        if(state){
+        if(localStorage.getItem("user")){
             return [
                 <li><Link to="/farmer/appointments">Appointments</Link></li>,
                 <li><button className="btn waves-effect waves-light #f44336 red" style={{marginRight:'10px'}} onClick={()=>{
                     localStorage.clear()
-                    dispatch({type:'CLEAR'})
                     navigate('/api/auth/login')
                 }}>Logout</button></li>
             ]
@@ -26,9 +25,12 @@ const NavBar=()=>{
     return(
         <nav>
             <div className="nav-wrapper black">
-                <Link to={state?"/":'/api/auth/login'} className="brand-logo left" style={{marginLeft:"10px"}}>AgriSewa</Link>
+                <Link to={localStorage.getItem("user")?"/":'/api/auth/login'} className="brand-logo left" style={{marginLeft:"10px"}}>AgriSewa</Link>
                 <ul id="nav-mobile" className="right">
                     {renderList()}
+
+
+                    
                 </ul>
             </div>
         </nav>
