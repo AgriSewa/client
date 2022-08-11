@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import Button from '@material-ui/core/Button';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import IconButton from '@material-ui/core/IconButton';
+
 const Home = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const [img,setImg]= useState('')
   useEffect(() => {
     if (!localStorage.getItem("user")) {
       navigate("/api/auth/login");
@@ -20,10 +25,17 @@ const Home = () => {
     );
   }
 
+     const uploadImage=async(e)=>{
+       setImg(URL.createObjectURL(e.target.files[0]))
+      }
+      
   const onSubmit = async (data) => {
     let postid = uuidv4();
+    console.log(data)
     let file = data.file[0];
+    console.log(file);
     let blob = file.slice(0, file.size, "image/jpeg");
+    
     let newFile = new File([blob], `${postid}_post.jpeg`, {
       type: "image/jpeg",
     });
@@ -32,6 +44,9 @@ const Home = () => {
 
     fetch("/uploadimg", {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: formData,
     })
       .then((res) => console.log("Success"))
@@ -40,14 +55,24 @@ const Home = () => {
       });
   };
 
-  
+
+
 
   return (
     <div>
       <h2>Home page</h2>
+      <img src={img} style={{height:"100px", width:"100px"}}/>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="file" {...register("file")} />
-
+        <input type="file" {...register("file")} onChange={(e)=>{uploadImage(e)}}  id="icon" style={{display:"none"}} />
+        <label htmlFor="icon">
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="span"
+          >
+            <PhotoCamera />
+          </IconButton>
+        </label>
         <input type="submit" />
       </form>
     </div>
