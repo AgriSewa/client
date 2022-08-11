@@ -25,9 +25,9 @@ const Home = () => {
     );
   }
 
-     const uploadImage=async(e)=>{
-       setImg(URL.createObjectURL(e.target.files[0]))
-      }
+  const uploadImage=async(e)=>{
+    setImg(URL.createObjectURL(e.target.files[0]))
+  }
       
   const onSubmit = async (data) => {
     let postid = uuidv4();
@@ -42,21 +42,19 @@ const Home = () => {
     let formData = new FormData();
     formData.append("imgfile", newFile);
 
-    fetch("/uploadimg", {
+    axios({
+      url: "/uploadimg",
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      body: formData,
-    })
-      .then((res) => console.log("Success"))
-      .catch((err) => {
+      data: formData,
+    }).then((res) => {
+      console.log("Success")
+    }).catch((err) => {
         console.log("Error");
-      });
+    });
   };
-
-
-
 
   return (
     <div>

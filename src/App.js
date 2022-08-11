@@ -6,6 +6,7 @@ import VerifyLogin from './components/VerifyLogin'
 import NavBar from './components/Navbar'
 import ViewAppointment from './components/ViewAppointment'
 import Home from './components/Home' 
+import Results from './components/Results' 
 import './App.css'
 import { BrowserRouter,Routes,Route} from 'react-router-dom'
 
@@ -16,6 +17,7 @@ const App=()=>{
         <NavBar />
         <Routes>
           <Route exact path='/' element={<Home />}></Route>
+          <Route exact path='/farmer/viewResults' element={<Results />}></Route>
           <Route exact path='/api/auth/login' element={<Login />}></Route>
           <Route exact path='/api/auth/register' element={<Register />}></Route>
           <Route exact path='/api/auth/verifyRegister/:phone' element={<VerifyRegister />}></Route>
