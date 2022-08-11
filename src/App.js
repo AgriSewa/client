@@ -4,6 +4,7 @@ import Register from './components/Register'
 import VerifyRegister from './components/VerifyRegister'
 import VerifyLogin from './components/VerifyLogin'
 import NavBar from './components/Navbar'
+import ViewAppointment from './components/ViewAppointment'
 import Home from './components/Home' 
 import './App.css'
 import { BrowserRouter,Routes,Route} from 'react-router-dom'
@@ -19,6 +20,7 @@ const App=()=>{
           <Route exact path='/api/auth/register' element={<Register />}></Route>
           <Route exact path='/api/auth/verifyRegister/:phone' element={<VerifyRegister />}></Route>
           <Route exact path='/api/auth/verifyLogin/:phone' element={<VerifyLogin />}></Route>
+          <Route exact path='/farmer/appointments' element={<ViewAppointment />}></Route>
         </Routes>
       </BrowserRouter> 
     </>           
