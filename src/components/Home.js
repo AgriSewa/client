@@ -2,14 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import Button from '@material-ui/core/Button';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import IconButton from '@material-ui/core/IconButton';
 
 const Home = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const [img,setImg]= useState('')
+  const [img,setImg]= useState('https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg')
   useEffect(() => {
     if (!localStorage.getItem("user")) {
       navigate("/api/auth/login");
@@ -31,9 +30,7 @@ const Home = () => {
       
   const onSubmit = async (data) => {
     let postid = uuidv4();
-    console.log(data)
     let file = data.file[0];
-    console.log(file);
     let blob = file.slice(0, file.size, "image/jpeg");
     
     let newFile = new File([blob], `${postid}_post.jpeg`, {
@@ -46,7 +43,7 @@ const Home = () => {
       url: "/uploadimg",
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'auth': `Bearer ${localStorage.getItem("jwt")}`,
       },
       data: formData,
     }).then((res) => {

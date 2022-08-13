@@ -59,7 +59,7 @@ const Register=()=>{
                 <form onSubmit={submit}> 
                     <input type="text" placeholder='Name' value={username} onChange={(e)=>setUsername(e.target.value)} required />
                     <input type="number" placeholder='Phone Number' value={phone} onChange={(e)=>setPhone(e.target.value)} required />
-                    <button className="btn waves-effect waves-light #2b67ab blue darken-3" type='submit'>Submit</button>
+                    <button className="btn waves-effect waves-light #2b67ab blue darken-3 white-text text-lighten-3" type='submit'>Submit</button>
                 </form>
                 <br/><h7><Link to="/api/auth/login">Already have an account(Login)</Link></h7>
             </div>

@@ -6,15 +6,20 @@ const Results=()=>{
     const navigate = useNavigate();
     const [results,setResults]=useState([]);
     useEffect(()=>{
-        axios({
-            url:'/farmer/viewResults',
-            method:'GET',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            }
-        }).then(res=>{
-            setResults(res.data.results)
-        })
+        if (!localStorage.getItem("user")) {
+            navigate("/login");
+        }
+        else {
+            axios({
+                url:'/farmer/viewResults',
+                method:'GET',
+                headers: {
+                    'auth': `Bearer ${localStorage.getItem("jwt")}`,
+                }
+            }).then(res=>{
+                setResults(res.data.results)
+            })
+        }        
     },[])
 
     return(
@@ -29,7 +34,7 @@ const Results=()=>{
                         <div className='card-content'>
                             <h6>{result.problem}</h6>
                             <p>{result.advice}</p>
-                            {result.update_farmer==0 && <button className="btn waves-effect waves-light #00bcd4 cyan" onClick={()=>navigate(`/feeback/${result.id}`)}>Give Rating</button>}
+                            {result.update_farmer==0 && <button className="btn waves-effect waves-light #00bcd4 cyan white-text text-lighten-3" onClick={()=>navigate(`/feeback/${result.id}`)}>Give Rating</button>}
                         </div>
                     </div>
                 )
