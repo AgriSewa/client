@@ -5,11 +5,15 @@ import VerifyRegister from './components/VerifyRegister'
 import VerifyLogin from './components/VerifyLogin'
 import NavBar from './components/Navbar'
 import ViewAppointment from './components/ViewAppointment'
+import ViewExpert from './components/ViewExpert'
 import Home from './components/Home' 
 import Results from './components/Results' 
-import Feedback from './components/Feedback' 
+import BookExpert from './components/BookExpert'
 import './App.css'
+import './index.css'
 import { BrowserRouter,Routes,Route} from 'react-router-dom'
+import Feedback from './components/Feedback';
+
 
 const App=()=>{
   return (
@@ -25,6 +29,8 @@ const App=()=>{
           <Route exact path='/api/auth/verifyLogin/:phone' element={<VerifyLogin />}></Route>
           <Route exact path='/farmer/appointments' element={<ViewAppointment />}></Route>
           <Route exact path='/feedback/:id' element={<Feedback />}></Route>
+          <Route exact path='/farmer/viewexperts' element={<ViewExpert />}></Route>
+          <Route exact path='/farmer/bookexperts/:expid' element={<BookExpert />}></Route>
         </Routes>
       </BrowserRouter> 
     </>           
