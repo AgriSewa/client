@@ -1,83 +1,28 @@
 import React,{useState, useEffect} from "react";
 import axios from "axios";
 import { connect } from 'twilio-video';
+import { useNavigate} from "react-router-dom";
 
 
 const ViewAppointment = () => {
 
+  const navigate = useNavigate();
   const [appointmentdata,setAppointmentdata] =useState([]);
   const [curdate,setCurdate]= useState();
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "https://sdk.twilio.com/js/video/releases/2.15.2/twilio-video.min.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
-
-  const startRoom = async (roomName) => {
-      
-      // fetch an Access Token from the join-room route
-      const response = await axios({
-          url: "/join-room" ,
-          method: "POST",
-          headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          },
-          data: { roomName: roomName },
-      });
-      const { token } = await response.data;
-
-      console.log(token);
-      // //join the video room with the token
-      connect(`${token}`, { name:roomName }).then(room => {
-        console.log(`Successfully joined a Room: ${room}`);
-        room.on('participantConnected', participant => {
-          console.log(`A remote Participant connected: ${participant}`);
-        });
-      }, error => {
-        console.error(`Unable to connect to Room: ${error.message}`);
-      });
-      // console.log(room);
-      // localParticipant=room.localParticipant;
-      // handleConnectedParticipant(room.localParticipant,"red");
-      // room.participants.forEach((participant)=>handleConnectedParticipant(participant,"yellow"));
-      // room.on("participantConnected", (participant)=>handleConnectedParticipant(participant,"yellow"));
-
-      // //for disabling video
-      // // room.localParticipant.videoTracks.forEach(publication => {
-      // //     console.log(publication);
-      // //     publication.track.disable();
-      // // });
-      
-
-      // // handle cleanup when a participant disconnects
-      // room.on("participantDisconnected", handleDisconnectedParticipant);
-      // window.addEventListener("pagehide", () => room.disconnect());
-      // window.addEventListener("beforeunload", () => room.disconnect());
-  };
-
-  useEffect(() =>{
-     const config = {
+  useEffect(() =>{  
+    axios({
+      url: '/farmer/upcoming',
+      method: 'GET',
       headers: {
-        auth: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    };
-
-  
-    axios.get('/farmer/upcoming',config).then((res)=>{
+        auth: `Bearer ${localStorage.getItem("jwt")}`
+      }}).then((res)=>{
       console.log(res.data);
       setCurdate(convert(new Date()));
-
-   
-
       setAppointmentdata(res.data);
     }).catch((err)=>{
       console.log(err);
     })
-    
-
   },[])
 
 
@@ -92,7 +37,6 @@ const ViewAppointment = () => {
   return (
     <>
       <section>
-    
           <div className="container ">
             <div className="row">
               <div className="col">
@@ -115,7 +59,7 @@ const ViewAppointment = () => {
                     </thead>
                     <tbody>
                     {
-                    appointmentdata.map((appointment,index)=>{
+                      appointmentdata && appointmentdata.map((appointment,index)=>{
                       
                       if(convert(new Date(appointment.book_date))>=curdate)
                       return(
@@ -129,7 +73,7 @@ const ViewAppointment = () => {
                             <td className="text-center">
                               { 
                                 appointment.mode==="audio" && 
-                                <button className="btn btn-primary btn-sm" onClick={()=>startRoom(appointment.link)}>
+                                <button className="btn btn-primary btn-sm" onClick={()=>navigate(`/meet/audio/${appointment.link}`)}>
                                   Join
                                 </button>
                               }

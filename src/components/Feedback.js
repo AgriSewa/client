@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { useForm } from "react-hook-form";
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Star from '@material-ui/icons/StarBorder';
+import M from "materialize-css";
 
 const Feedback = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
   const { id } = useParams();
   const [feedback, setFeedback] = useState("");
   const [img, setImg]= useState('https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg');
@@ -59,8 +58,19 @@ const Feedback = () => {
         if (res.data.success) {
           setFeedback("");
           console.log("Data submitted");
+          M.toast({
+            html: res.data.message,
+            classes: "#64dd17 light-green accent-4",
+          });
           navigate('/');
         }
+        else{
+          M.toast({
+            html: res.data.message,
+            classes: "#f44336 red",
+          });
+        }
+        setFeedback("")
     })
     .catch((e) => {
         console.log("Internal Server error");

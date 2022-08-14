@@ -13,6 +13,7 @@ import './App.css'
 import './index.css'
 import { BrowserRouter,Routes,Route} from 'react-router-dom'
 import Feedback from './components/Feedback';
+import AudioMeet from './components/AudioMeet';
 
 
 const App=()=>{
@@ -31,6 +32,7 @@ const App=()=>{
           <Route exact path='/feedback/:id' element={<Feedback />}></Route>
           <Route exact path='/farmer/viewexperts' element={<ViewExpert />}></Route>
           <Route exact path='/farmer/bookexperts/:expid' element={<BookExpert />}></Route>
+          <Route exact path='/meet/audio/:link' element={<AudioMeet />}></Route>
         </Routes>
       </BrowserRouter> 
     </>           
