@@ -98,8 +98,14 @@ const BookExpert = () => {
     // const d = new Date();
     // console.log(d.toLocaleTimeString());
     
-    axios
-      .post(`/slots/${expid}`,{date1,date2,date3},config)
+      axios({
+        url: `/slots/${expid}`,
+        method: "POST",
+        data:{date1,date2,date3},
+        headers: {
+          "auth": `Bearer ${localStorage.getItem("jwt")}`,
+        }
+      })
       .then((res) => {
         console.log(res.data);
   
@@ -158,20 +164,21 @@ const BookExpert = () => {
                             <button
                               key={book._id}
                               className={
-                                (book.booked == 1 || currtime<=book.book_time.slice(0, 5))
+                                (book.booked == 1 || currtime>=book.book_time.slice(0, 5))
                                   ? "btn btn-danger btn-sm"
                                   : "btn btn-success btn-sm"
                               }
                               onClick={(e) => {
-                                if (book.booked == 0)
+                                if (book.booked == 0 && currtime<book.book_time.slice(0, 5))
                                   handleClickOpen(
                                     e
                                   );
-                                else
+                                else{
                                   M.toast({
                                     html: "Cannot book slot:(",
                                     classes: "#f44336 red",
                                   });
+                                }
                               }}
                             >
                               {book.book_time.slice(0, 5)}

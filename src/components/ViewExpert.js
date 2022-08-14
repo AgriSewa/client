@@ -18,7 +18,13 @@ const ViewExpert = () => {
         auth: `Bearer ${localStorage.getItem("jwt")}`,
       }
     }
-    axios.get('/get/nearest',config).then((res)=>{
+    axios({
+      url: '/get/nearby',
+      method: "GET",
+      headers: {
+        "auth": `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }).then((res)=>{
       console.log(res.data);
       setExpert(res.data);
     }).catch((err)=>{
