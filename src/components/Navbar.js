@@ -9,7 +9,7 @@ const NavBar=()=>{
         if(localStorage.getItem("user")){
             return [
                 <li><Link to="/">Home</Link></li>,
-                <li><Link to="/farmer/upcoming">Appointments</Link></li>,
+                <li><Link to="/farmer/appointments">Appointments</Link></li>,
                 <li><Link to="/farmer/viewResults">Results</Link></li>,
                 <li><button className="btn waves-effect waves-light #f44336 red" style={{marginRight:'10px'}} onClick={()=>{
                     localStorage.clear()
