@@ -7,7 +7,7 @@ const Results=()=>{
     const [results,setResults]=useState([]);
     useEffect(()=>{
         if (!localStorage.getItem("user")) {
-            navigate("/login");
+            navigate("/api/auth/login");
         }
         else {
             axios({
@@ -25,7 +25,7 @@ const Results=()=>{
     return(
         <div className='gallery'>
             {
-                results&&
+                results &&
                 results.map((result)=>{
                 return(
                     <div className='card home-card' key={result.id}>                     

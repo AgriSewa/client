@@ -5,14 +5,11 @@ import axios from "axios"
 const ViewExpert = () => {
   const navigate = useNavigate();
   const [expert,setExpert] = useState([]);
-
+  
   useEffect(() => {
     if (!localStorage.getItem("user")) {
       navigate("/api/auth/login");
     }
-  }, []);
-  
-  useEffect(() => {
     axios({
       url: '/get/nearby',
       method: "GET",
@@ -42,7 +39,7 @@ const ViewExpert = () => {
                 <p className="h3">{ex.name}</p>
 
                 <Link to={`/farmer/bookexperts/${ex._id}`}><button className=" ms-auto btn btn-secondary btn-sm">
-                  Join
+                  Book
                 </button></Link>
               </div>
             </div>

@@ -11,6 +11,9 @@ const ViewAppointment = () => {
   const [curdate,setCurdate]= useState();
 
   useEffect(() =>{  
+    if (!localStorage.getItem("user")) {
+      navigate("/api/auth/login");
+    }
     axios({
       url: '/farmer/upcoming',
       method: 'GET',

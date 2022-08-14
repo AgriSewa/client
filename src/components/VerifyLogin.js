@@ -54,7 +54,7 @@ const VerifyLogin = () => {
             required
           />
           <button
-            className="btn waves-effect waves-light #2b67ab blue darken-3"
+            className="btn waves-effect waves-light #2b67ab blue darken-3 white-text text-lighten-3"
             type="submit"
           >
             Submit

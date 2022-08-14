@@ -85,11 +85,6 @@ const BookExpert = () => {
   }, []);
 
   useEffect(() => {
-    const config = {
-      headers: {
-        auth: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    };
     let temp = new Date().getTime()
     let date1 = convert(new Date(temp));
     let date2 = convert(new Date(temp + (24 * 60 * 60 * 1000)));
@@ -117,7 +112,7 @@ const BookExpert = () => {
         setDate2(convert(new Date(res.data.list2[0].book_date)));
         setDate3(convert(new Date(res.data.list3[0].book_date)));
         let temp1=(new Date())
-        setCurrtime(temp1.getHours()+":"+temp1.getMinutes())
+        setCurrtime(temp1.getHours()<=9?"0"+temp1.getHours()+":"+temp1.getMinutes():temp1.getHours()+":"+temp1.getMinutes())
       })
       .catch((err) => {
         console.log(err);
@@ -169,6 +164,7 @@ const BookExpert = () => {
                                   : "btn btn-success btn-sm"
                               }
                               onClick={(e) => {
+                                console.log(currtime+" "+book.book_time.slice(0, 5))
                                 if (book.booked == 0 && currtime<book.book_time.slice(0, 5))
                                   handleClickOpen(
                                     e

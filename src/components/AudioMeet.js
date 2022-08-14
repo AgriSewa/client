@@ -34,7 +34,7 @@ const AudioMeet = () => {
 
     useEffect(() => {
         if (!localStorage.getItem("user")) {
-          navigate("/login");
+          navigate("/api/auth/login");
         }
         // fetch an Access Token from the join-room route
         axios({

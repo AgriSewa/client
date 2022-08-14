@@ -12,6 +12,10 @@ h2,h3{
     margin-top: 30px;
 }
 
+.myCard{
+    margin-top: 15vh;
+}
+
 .auth-card{
     margin: 25px auto;
     padding: 20px;

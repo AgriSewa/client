@@ -15,7 +15,7 @@ const Feedback = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
-      navigate("/login");
+      navigate("/api/auth/login");
     }
   }, []);
 
@@ -36,7 +36,7 @@ const Feedback = () => {
     e.preventDefault();
     if(feedback===""||img==='https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'){
       M.toast({
-        html: "Feedback cannot be empty",
+        html: "Image/Feedback cannot be empty",
         classes: "#f44336 red",
       });
       return;
@@ -97,7 +97,7 @@ const Feedback = () => {
                     <PhotoCamera />
                 </IconButton>
             </label>
-            <input type="file" id="imgfile" name="imgfile" onChange={(e)=>{uploadImage(e)}}  style={{display:"none"}} />
+            <input type="file" id="imgfile" name="imgfile" accept=".jpeg,.jpg,.png" onChange={(e)=>{uploadImage(e)}}  style={{display:"none"}} />
             <br />
             <h3>Provide Feedback for Expert</h3>
             <Button onClick={()=>setFeedback("1")}><Star fontSize="large" /></Button>
