@@ -34,6 +34,13 @@ const Feedback = () => {
 
   const submit = async (e) => {
     e.preventDefault();
+    if(feedback===""||img==='https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'){
+      M.toast({
+        html: "Feedback cannot be empty",
+        classes: "#f44336 red",
+      });
+      return;
+    }
     let inputElem = document.getElementById("imgfile");
     let file = inputElem.files[0];
     console.log(file);
@@ -62,7 +69,7 @@ const Feedback = () => {
             html: res.data.message,
             classes: "#64dd17 light-green accent-4",
           });
-          navigate('/');
+          navigate('/farmer/ViewResults');
         }
         else{
           M.toast({

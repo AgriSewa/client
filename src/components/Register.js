@@ -15,7 +15,7 @@ const Register=()=>{
       navigate("/");
     }
   
-        if(position.lat!==0){
+        if(position.lat!==""){
             const d={
                 username:username,
                 phone:phone,

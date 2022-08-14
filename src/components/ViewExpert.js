@@ -13,11 +13,6 @@ const ViewExpert = () => {
   }, []);
   
   useEffect(() => {
-    const config = {
-      headers: {
-        auth: `Bearer ${localStorage.getItem("jwt")}`,
-      }
-    }
     axios({
       url: '/get/nearby',
       method: "GET",
