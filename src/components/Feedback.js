@@ -33,9 +33,12 @@ const Feedback = () => {
     setImg(URL.createObjectURL(e.target.files[0]))
   }
 
-  const submit = async (data) => {
+  const submit = async (e) => {
+    e.preventDefault();
+    let inputElem = document.getElementById("imgfile");
+    let file = inputElem.files[0];
+    console.log(file);
     let postid = uuidv4();
-    let file = data.file[0];
     let blob = file.slice(0, file.size, "image/jpeg");
     
     let newFile = new File([blob], `${postid}_post.jpeg`, {
@@ -43,10 +46,14 @@ const Feedback = () => {
     });
     let formData = new FormData();
     formData.append("imgfile", newFile);
+    formData.append("feedback", feedback);
     axios({
       url: `/feedback/${id}`,
       method: "POST",
-      data: { feedback: feedback, formData },
+      data: formData ,
+      headers: {
+        "auth": `Bearer ${localStorage.getItem("jwt")}`,
+      }
     })
     .then((res) => {
         if (res.data.success) {
@@ -64,8 +71,8 @@ const Feedback = () => {
       <div className="card auth-card">
         <h3>Upload image of crop</h3>
         <img src={img} style={{margin:"auto", height:"50%", width:"50%"}}/>
-        <form onSubmit={handleSubmit(submit)}>
-            <label htmlFor="icon">
+        <form onSubmit={submit}>                                                                                        
+            <label htmlFor="imgfile">
                 <IconButton
                     color="primary"
                     aria-label="upload picture"
@@ -73,7 +80,7 @@ const Feedback = () => {
                     <PhotoCamera />
                 </IconButton>
             </label>
-            <input type="file" {...register("file")} onChange={(e)=>{uploadImage(e)}}  id="icon" style={{display:"none"}} />
+            <input type="file" id="imgfile" name="imgfile" onChange={(e)=>{uploadImage(e)}}  style={{display:"none"}} />
             <br />
             <h3>Provide Feedback for Expert</h3>
             <Button onClick={()=>setFeedback("1")}><Star fontSize="large" /></Button>

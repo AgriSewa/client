@@ -18,7 +18,7 @@ const App=()=>{
         <NavBar />
         <Routes>
           <Route exact path='/' element={<Home />}></Route>
-          <Route exact path='/farmer/viewResults' element={<Results />}></Route>
+          <Route exact path='/farmer/ViewResults' element={<Results />}></Route>
           <Route exact path='/api/auth/login' element={<Login />}></Route>
           <Route exact path='/api/auth/register' element={<Register />}></Route>
           <Route exact path='/api/auth/verifyRegister/:phone' element={<VerifyRegister />}></Route>

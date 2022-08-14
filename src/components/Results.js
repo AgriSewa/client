@@ -25,6 +25,7 @@ const Results=()=>{
     return(
         <div className='gallery'>
             {
+                results&&
                 results.map((result)=>{
                 return(
                     <div className='card home-card' key={result.id}>                     
@@ -34,7 +35,7 @@ const Results=()=>{
                         <div className='card-content'>
                             <h6>{result.problem}</h6>
                             <p>{result.advice}</p>
-                            {result.update_farmer==0 && <button className="btn waves-effect waves-light #00bcd4 cyan white-text text-lighten-3" onClick={()=>navigate(`/feeback/${result.id}`)}>Give Rating</button>}
+                            {result.update_farmer==0 && <button className="btn waves-effect waves-light #00bcd4 cyan white-text text-lighten-3" onClick={()=>navigate(`/feedback/${result.id}`)}>Give Rating</button>}
                         </div>
                     </div>
                 )

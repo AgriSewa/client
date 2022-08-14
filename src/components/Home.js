@@ -43,7 +43,8 @@ const Home = () => {
       url: "/uploadimg",
       method: "POST",
       headers: {
-        'auth': `Bearer ${localStorage.getItem("jwt")}`,
+
+        "auth": `Bearer ${localStorage.getItem("jwt")}`,
       },
       data: formData,
     }).then((res) => {
