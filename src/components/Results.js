@@ -5,6 +5,7 @@ import axios from "axios";
 const Results=()=>{
     const navigate = useNavigate();
     const [results,setResults]=useState([]);
+    const curdate=new Date();
     useEffect(()=>{
         if (!localStorage.getItem("user")) {
             navigate("/api/auth/login");
@@ -30,6 +31,7 @@ const Results=()=>{
                     var date=new Date(result.book_date.split('T')[0])
                     date.setDate(date.getDate()+1)
                     return(
+                        date.toDateString()<=curdate.toDateString() && 
                         <div className='card home-card' key={result.id}>                     
                             <div className='card-image'>
                                 <img src={result.image} style={{height:'300px'}}/>
