@@ -8,7 +8,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import M from "materialize-css";
+import Loader from './Loader'
 import axios from "axios";
+ 
 const BookExpert = () => {
   const navigate = useNavigate();
   let { expid } = useParams();
@@ -17,17 +19,19 @@ const BookExpert = () => {
   const [bookinfo, setBookinfo] = useState([]);
   const [bookinfo2, setBookinfo2] = useState([]);
   const [bookinfo3, setBookinfo3] = useState([]);
-
+ 
   const [date1, setDate1] = useState();
   const [date2, setDate2] = useState();
   const [date3, setDate3] = useState();
-
+  const [flag,setFlag] = useState();
   const [currtime,setCurrtime] = useState();
-
+ 
   const [mode, setMode] = useState();
   const [open, setOpen] = React.useState(false);
+ 
+   const [load,setLoad]=useState(true);
   const theme = useTheme();
-
+ 
   const handleClickOpen = (e) => {
     setTime(e.target.innerText);
     setDate(date1);
@@ -43,11 +47,11 @@ const BookExpert = () => {
     setDate(date3);
     setOpen(true);
   };
-
+ 
   const handleClose = () => {
     setOpen(false);
   };
-
+ 
   const handleSubmit = async () => {
     if (mode == "" || mode == null || mode == undefined) {
       M.toast({
@@ -61,7 +65,7 @@ const BookExpert = () => {
         auth: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-
+ 
     await axios
       .get(`/bookslot/${date}/${time}/${mode}/${expid}`, config)
       .then((res) => {
@@ -69,30 +73,47 @@ const BookExpert = () => {
           html: "Slot booked successfully!",
           classes: "#64dd17 light-green accent-4",
         });
+        localStorage.setItem("time", new Date().getTime());
         navigate('/farmer/appointments')
       })
       .catch((err) => {
         M.toast({ html: "Try again!", classes: "#f44336 red" });
       });
-
+ 
     setOpen(false);
   };
-
+ 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
       navigate("/api/auth/login");
     }
+ 
+     setInterval(function () {
+     let temp=localStorage.getItem("time")
+     let hours = Math.abs(new Date().getTime() - temp.valueOf()) / 3600000;
+     if(hours<24){
+      setFlag(false);
+       navigate("/farmer/viewexperts");
+     }
+   
+    }, 1000);
+ 
   }, []);
-
+ 
   useEffect(() => {
+    const config = {
+      headers: {
+        auth: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
     let temp = new Date().getTime()
     let date1 = convert(new Date(temp));
     let date2 = convert(new Date(temp + (24 * 60 * 60 * 1000)));
     let date3=  convert(new Date(temp + (24 * 60 * 60 * 1000)+(24 * 60 * 60 * 1000)));
-    
+   
     // const d = new Date();
     // console.log(d.toLocaleTimeString());
-    
+   
       axios({
         url: `/slots/${expid}`,
         method: "POST",
@@ -103,8 +124,8 @@ const BookExpert = () => {
       })
       .then((res) => {
         console.log(res.data);
-  
-        
+ 
+       
         setBookinfo(res.data.list1);
         setBookinfo2(res.data.list2);
         setBookinfo3(res.data.list3);
@@ -112,25 +133,28 @@ const BookExpert = () => {
         setDate2(convert(new Date(res.data.list2[0].book_date)));
         setDate3(convert(new Date(res.data.list3[0].book_date)));
         let temp1=(new Date())
-        setCurrtime(temp1.getHours()<=9?"0"+temp1.getHours()+":"+temp1.getMinutes():temp1.getHours()+":"+temp1.getMinutes())
+        setCurrtime(temp1.getHours()+":"+temp1.getMinutes())
+        setLoad(false);
       })
       .catch((err) => {
         console.log(err);
         console.log("unable to fetch");
       });
-
+ 
   }, []);
-
+ 
   function convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
-
+ 
   return (
     <>
-      <div className="container ">
+    {load==false ?
+    <section>
+      <div className="container">
         <div className="row">
           <div className="col-lg-12 col-md-12 col-12 col-sm-12">
             <p className="h3 text-teal text-center mt-5">Available slots</p>
@@ -182,8 +206,8 @@ const BookExpert = () => {
                         })}
                     </td>
                   </tr>
-                    
-
+                   
+ 
                   <tr>
                     <td className="text-center font-weight-bold">
                       {date2}
@@ -219,9 +243,7 @@ const BookExpert = () => {
                         })}
                     </td>
                   </tr>
-
-
-
+ 
                 <tr>
                     <td className="text-center font-weight-bold">
                       {date3}
@@ -256,16 +278,14 @@ const BookExpert = () => {
                         })}
                     </td>
                   </tr>
-                  
+                 
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-
-
-
+ 
       <Dialog
         open={open}
         onClose={handleClose}
@@ -335,11 +355,8 @@ const BookExpert = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-
-
-
-
+ 
+ 
         <Dialog
         open={open}
         onClose={handleClose}
@@ -409,13 +426,7 @@ const BookExpert = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-
-
-
-
-
-
+ 
        <Dialog
         open={open}
         onClose={handleClose}
@@ -485,12 +496,12 @@ const BookExpert = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-
-
-
+ 
+ </section>
+: <Loader/>
+                }
     </>
   );
 };
-
+ 
 export default BookExpert;

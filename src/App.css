@@ -1,55 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Montez&display=swap');
 
-h2,h3{
+h2,
+h3 {
     font-family: 'Lobster', cursive;
 }
 
-.brand-logo{
+.brand-logo {
     font-family: 'Montez', cursive;
 }
 
-.mycard{
+.mycard {
     margin-top: 30px;
 }
 
-.myCard{
-    margin-top: 15vh;
-}
-
-.auth-card{
+.auth-card {
     margin: 25px auto;
     padding: 20px;
     text-align: center;
     max-width: 400px;
 }
 
-.gallery{
+.gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-.item{
+.item {
     width: 30%;
 }
 
-.home-card{
-    margin:25px auto;
+.home-card {
+    margin: 25px auto;
     width: 45%;
     height: max-content;
 }
-.profile-card{
-    margin:25px auto;
+
+.profile-card {
+    margin: 25px auto;
     width: 30%;
     height: max-content;
 }
 
-#toast-container{
-    top:2% !important;
-    right:2% !important;
-    left:auto !important;
+#toast-container {
+    top: 2% !important;
+    right: 2% !important;
+    left: auto !important;
 }
 
-.material-icons:hover{
+.material-icons:hover {
     cursor: pointer;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    border-radius: 2px !important;
+}
+
+body {
+    top: 0px !important;
 }
