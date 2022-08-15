@@ -164,7 +164,6 @@ const BookExpert = () => {
                                   : "btn btn-success btn-sm"
                               }
                               onClick={(e) => {
-                                console.log(currtime+" "+book.book_time.slice(0, 5))
                                 if (book.booked == 0 && currtime<book.book_time.slice(0, 5))
                                   handleClickOpen(
                                     e

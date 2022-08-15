@@ -27,18 +27,21 @@ const Results=()=>{
             {
                 results &&
                 results.map((result)=>{
-                return(
-                    <div className='card home-card' key={result.id}>                     
-                        <div className='card-image'>
-                            <img src={result.image} style={{height:'300px'}}/>
+                    var date=new Date(result.book_date.split('T')[0])
+                    date.setDate(date.getDate()+1)
+                    return(
+                        <div className='card home-card' key={result.id}>                     
+                            <div className='card-image'>
+                                <img src={result.image} style={{height:'300px'}}/>
+                            </div>
+                            <div className='card-content'>
+                                <h6><strong>Appointment Date:</strong> {date.toDateString()}</h6>
+                                <h6><strong>Problem:</strong> {result.problem}</h6>
+                                <p><strong>Advice:</strong> {result.advice}</p>
+                                {result.update_farmer==0 && <button className="btn waves-effect waves-light #00bcd4 cyan white-text text-lighten-3" onClick={()=>navigate(`/feedback/${result.id}`)}>Upload image of Problem</button>}
+                            </div>
                         </div>
-                        <div className='card-content'>
-                            <h6>{result.problem}</h6>
-                            <p>{result.advice}</p>
-                            {result.update_farmer==0 && <button className="btn waves-effect waves-light #00bcd4 cyan white-text text-lighten-3" onClick={()=>navigate(`/feedback/${result.id}`)}>Upload image of Problem</button>}
-                        </div>
-                    </div>
-                )
+                    )
             })
             }                       
         </div>
