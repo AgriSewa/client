@@ -22,6 +22,8 @@ const BookExpert = () => {
   const [date2, setDate2] = useState();
   const [date3, setDate3] = useState();
 
+  const [rating, setRating] = useState(0);
+
   const [currtime,setCurrtime] = useState();
 
   const [mode, setMode] = useState();
@@ -111,6 +113,7 @@ const BookExpert = () => {
         setDate1(convert(new Date(res.data.list1[0].book_date)));
         setDate2(convert(new Date(res.data.list2[0].book_date)));
         setDate3(convert(new Date(res.data.list3[0].book_date)));
+        setRating(res.data.rating[0].rating);
         let temp1=(new Date())
         setCurrtime(temp1.getHours()<=9?"0"+temp1.getHours()+":"+temp1.getMinutes():temp1.getHours()+":"+temp1.getMinutes())
       })
@@ -130,6 +133,7 @@ const BookExpert = () => {
 
   return (
     <>
+      <div>{rating}</div>
       <div className="container ">
         <div className="row">
           <div className="col-lg-12 col-md-12 col-12 col-sm-12">

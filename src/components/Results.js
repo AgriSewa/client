@@ -17,6 +17,7 @@ const Results=()=>{
                     'auth': `Bearer ${localStorage.getItem("jwt")}`,
                 }
             }).then(res=>{
+                console.log(res.data.results);
                 setResults(res.data.results)
             })
         }        
@@ -42,8 +43,8 @@ const Results=()=>{
                             </div>
                         </div>
                     )
-            })
-            }                       
+                })
+            }
         </div>
     )
 }
