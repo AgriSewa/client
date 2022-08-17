@@ -11,8 +11,8 @@ const ViewExpert = () => {
       navigate("/api/auth/login");
     }
     setInterval(function () {
-     let temp=localStorage.getItem("time")
-     let hours = Math.abs(new Date().getTime() - temp.valueOf()) / 3600000;
+      let temp=localStorage.getItem("time")?localStorage.getItem("time").valueOf():0;
+      let hours = Math.abs(new Date().getTime() - temp) / 3600000;
      if(hours<24){
       setFlag(false);
      }
@@ -56,7 +56,7 @@ const ViewExpert = () => {
                        M.toast({ html: "Cannot book slot within 24 hours of one booking!", classes: "#f44336 red" });
                   }
                 }}className=" ms-auto btn btn-secondary btn-sm">
-                  Join
+                  Book
                 </button>
               </div>
             </div>

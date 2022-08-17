@@ -89,8 +89,8 @@ const BookExpert = () => {
     }
  
      setInterval(function () {
-     let temp=localStorage.getItem("time")
-     let hours = Math.abs(new Date().getTime() - temp.valueOf()) / 3600000;
+     let temp=localStorage.getItem("time")?localStorage.getItem("time").valueOf():0;
+     let hours = Math.abs(new Date().getTime() - temp) / 3600000;
      if(hours<24){
       setFlag(false);
        navigate("/farmer/viewexperts");
@@ -133,7 +133,7 @@ const BookExpert = () => {
         setDate2(convert(new Date(res.data.list2[0].book_date)));
         setDate3(convert(new Date(res.data.list3[0].book_date)));
         let temp1=(new Date())
-        setCurrtime(temp1.getHours()+":"+temp1.getMinutes())
+        setCurrtime(temp1.getHours()<=9?"0"+temp1.getHours()+":"+temp1.getMinutes():temp1.getHours()+":"+temp1.getMinutes())
         setLoad(false);
       })
       .catch((err) => {
@@ -188,6 +188,7 @@ const BookExpert = () => {
                                   : "btn btn-success btn-sm"
                               }
                               onClick={(e) => {
+                                console.log(currtime+" "+book.book_time.slice(0, 5))
                                 if (book.booked == 0 && currtime<book.book_time.slice(0, 5))
                                   handleClickOpen(
                                     e
