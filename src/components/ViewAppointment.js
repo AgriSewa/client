@@ -2,18 +2,16 @@ import React,{useState, useEffect} from "react";
 import axios from "axios";
 import { connect } from 'twilio-video';
 import { useNavigate} from "react-router-dom";
-
-
+import Loader from './Loader'
+ 
 const ViewAppointment = () => {
-
+ 
   const navigate = useNavigate();
   const [appointmentdata,setAppointmentdata] =useState([]);
   const [curdate,setCurdate]= useState();
-
+  const [load,setLoad]=useState(true);
+ 
   useEffect(() =>{  
-    if (!localStorage.getItem("user")) {
-      navigate("/api/auth/login");
-    }
     axios({
       url: '/farmer/upcoming',
       method: 'GET',
@@ -23,22 +21,24 @@ const ViewAppointment = () => {
       console.log(res.data);
       setCurdate(convert(new Date()));
       setAppointmentdata(res.data);
+      setLoad(false);
     }).catch((err)=>{
       console.log(err);
     })
   },[])
-
-
+ 
+ 
    function convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
-
-
+ 
+ 
   return (
     <>
+    { load==false ?
       <section>
           <div className="container ">
             <div className="row">
@@ -56,17 +56,17 @@ const ViewAppointment = () => {
                         <th>Time</th>
                         {/* <th>Expert Name</th> */}
                         <th>Mode</th>
-                      
+                     
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                     {
                       appointmentdata && appointmentdata.map((appointment,index)=>{
-                      
+                     
                       if(convert(new Date(appointment.book_date))>=curdate)
                       return(
-                        
+                       
                          <tr key={appointment.id}>
                             <td className="text-center"><strong>{convert(new Date(appointment.book_date))}</strong></td>
                             <td className="text-center"><strong>{appointment.book_time}</strong></td>
@@ -74,8 +74,8 @@ const ViewAppointment = () => {
                              <td className="text-center"><strong>{appointment.mode}</strong></td>
                            
                             <td className="text-center">
-                              { 
-                                appointment.mode==="audio" && 
+                              {
+                                appointment.mode==="audio" &&
                                 <button className="btn btn-primary btn-sm" onClick={()=>navigate(`/meet/audio/${appointment.link}`)}>
                                   Join
                                 </button>
@@ -90,9 +90,9 @@ const ViewAppointment = () => {
                               }
                             </td>
                           </tr>
-                          
+                         
                     )})}
-                      
+                     
                     </tbody>
                   </table>
                 </div>
@@ -101,10 +101,10 @@ const ViewAppointment = () => {
           </div>
         {/* )} */}
       </section>
-
-       
+ 
+          :<Loader/>                  }
     </>
   );
 };
-
+ 
 export default ViewAppointment;

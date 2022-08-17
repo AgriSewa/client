@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react";
 import {useNavigate,Link} from "react-router-dom";
 import axios from "axios"
-
+import M from "materialize-css"
 const ViewExpert = () => {
   const navigate = useNavigate();
   const [expert,setExpert] = useState([]);
-  
+  const [flag,setFlag] = useState(true)
   useEffect(() => {
     if (!localStorage.getItem("user")) {
       navigate("/api/auth/login");
     }
+    setInterval(function () {
+     let temp=localStorage.getItem("time")
+     let hours = Math.abs(new Date().getTime() - temp.valueOf()) / 3600000;
+     if(hours<24){
+      setFlag(false);
+     }
+    }, 1000);
+   
+  }, []);
+ 
+  useEffect(() => {
     axios({
       url: '/get/nearby',
       method: "GET",
@@ -23,36 +34,42 @@ const ViewExpert = () => {
       console.log("unable to fetch")
     })
   },[])
-
+ 
   return (
     <>
       <div className="container mt-5">
         <div className="row">
           <div className="col text-center">
-
-{ expert && expert.length>0 && 
-
+ 
+{ expert && expert.length>0 &&
+ 
     expert.map((ex)=>{
       return (
            <div className="card my-2 bg-info" key={ex._id}>
               <div className="card-body bg-success text-white">
                 <p className="h3">{ex.name}</p>
-
-                <Link to={`/farmer/bookexperts/${ex._id}`}><button className=" ms-auto btn btn-secondary btn-sm">
-                  Book
-                </button></Link>
+ 
+                <button onClick={()=>{
+                  if(flag==true){
+                      navigate(`/farmer/bookexperts/${ex._id}`)
+                  }else{
+                       M.toast({ html: "Cannot book slot within 24 hours of one booking!", classes: "#f44336 red" });
+                  }
+                }}className=" ms-auto btn btn-secondary btn-sm">
+                  Join
+                </button>
               </div>
             </div>
       )
     })}
-
-
-
-
+ 
+ 
+ 
+ 
                {/* <div className="card my-2 bg-info">
               <div className="card-body bg-success text-white">
                 <p className="h3">name</p>
-
+ 
                 <button className=" ms-auto btn btn-secondary btn-sm">
                   Join
                 </button>
@@ -64,5 +81,5 @@ const ViewExpert = () => {
     </>
   );
 };
-
+ 
 export default ViewExpert;
