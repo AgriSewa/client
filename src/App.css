@@ -13,6 +13,10 @@ h3 {
     margin-top: 30px;
 }
 
+.myCard {
+    margin-top: 15vh;
+}
+
 .auth-card {
     margin: 25px auto;
     padding: 20px;
@@ -32,7 +36,7 @@ h3 {
 
 .home-card {
     margin: 25px auto;
-    width: 45%;
+    width: 95vh;
     height: max-content;
 }
 
