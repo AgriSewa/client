@@ -56,7 +56,7 @@ const ViewExpert = () => {
                        M.toast({ html: "Cannot book slot within 24 hours of one booking!", classes: "#f44336 red" });
                   }
                 }}className=" ms-auto btn btn-secondary btn-sm">
-                  Book
+                  Book Appointment
                 </button>
               </div>
             </div>

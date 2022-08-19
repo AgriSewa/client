@@ -16,6 +16,7 @@ const BookExpert = () => {
   let { expid } = useParams();
   const [time, setTime] = useState();
   const [date,setDate] = useState();
+  const [rating,setRating] = useState();
   const [bookinfo, setBookinfo] = useState([]);
   const [bookinfo2, setBookinfo2] = useState([]);
   const [bookinfo3, setBookinfo3] = useState([]);
@@ -88,15 +89,15 @@ const BookExpert = () => {
       navigate("/api/auth/login");
     }
  
-     setInterval(function () {
-     let temp=localStorage.getItem("time")?localStorage.getItem("time").valueOf():0;
-     let hours = Math.abs(new Date().getTime() - temp) / 3600000;
-     if(hours<24){
-      setFlag(false);
-       navigate("/farmer/viewexperts");
-     }
+    //  setInterval(function () {
+    //  let temp=localStorage.getItem("time")?localStorage.getItem("time").valueOf():0;
+    //  let hours = Math.abs(new Date().getTime() - temp) / 3600000;
+    //  if(hours<24){
+    //   setFlag(false);
+    //    navigate("/farmer/viewexperts");
+    //  }
    
-    }, 1000);
+    // }, 1000);
  
   }, []);
  
@@ -129,6 +130,7 @@ const BookExpert = () => {
         setBookinfo(res.data.list1);
         setBookinfo2(res.data.list2);
         setBookinfo3(res.data.list3);
+        setRating(res.data.rating[0].rating);
         setDate1(convert(new Date(res.data.list1[0].book_date)));
         setDate2(convert(new Date(res.data.list2[0].book_date)));
         setDate3(convert(new Date(res.data.list3[0].book_date)));
@@ -157,6 +159,7 @@ const BookExpert = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12 col-md-12 col-12 col-sm-12">
+            {rating && <p className="h3 text-teal text-center mt-5">{rating.slice(0,3)} <i className="material-icons small">star</i></p>}
             <p className="h3 text-teal text-center mt-5">Available slots</p>
           </div>
         </div>

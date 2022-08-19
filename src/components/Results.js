@@ -32,12 +32,13 @@ const Results=()=>{
                     var date=new Date(result.book_date.split('T')[0])
                     date.setDate(date.getDate()+1)
                     return(
-                        date<=curdate && 
+                        
                         <div className='card home-card' key={result.id}>                     
                             <div className='card-image'>
                                 <img src={result.image} style={{height:'300px'}}/>
                             </div>
                             <div className='card-content'>
+                                <h6><strong>Expert Name:</strong> {result.expertName}</h6>
                                 <h6><strong>Appointment Date:</strong> {date.toDateString()}</h6>
                                 <h6><strong>Problem:</strong> {result.problem}</h6>
                                 <p><strong>Advice:</strong> {result.advice}</p>

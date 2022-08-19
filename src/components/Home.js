@@ -7,6 +7,7 @@ import M from "materialize-css";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [cbot,setCbot]=useState(false)
   const [img,setImg]= useState('https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg')
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -79,7 +80,7 @@ const Home = () => {
   return (
     <>
     <div className="myCard">
-      <div className="auth-card">
+      <div className="auth-card" style={{zIndex:"-1"}}>
         <img src={img} style={{marginLeft:"auto", marginRight:"auto", marginTop:"0px", height:"80%", width:"80%"}}/>
         <form onSubmit={submit}>
         <label htmlFor="imgfile">
@@ -100,13 +101,14 @@ const Home = () => {
     </div>
   </div>
   <div>
-    <button style={{border:"none", background:"grey", borderRadius:"50%", color:"#006400", position: "fixed", bottom:"2%", left:"2%"}}>
-      <i className="large material-icons">android</i>
+    {cbot && <iframe style={{position: "fixed", top:"15vh", left:"5%", zIndex:"1"}} width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/aee8bee0-0d74-46a3-8856-c3db0c2224c8"></iframe>}
+    <button style={{height:"10%", width:"15vh", border:"none", position: "fixed", bottom:"2%", left:"2%"}} onClick={()=>setCbot(!cbot)}>
+      <img src="https://www.cio.com/wp-content/uploads/2021/12/chatbot_ai_machine-learning_emerging-tech-100778305-orig-1.jpg?quality=50&strip=all" style={{height:"100%", width:"100%", borderRadius:"50%"}}/>
     </button>
     <Link to="/farmer/viewexperts">
-      <button style={{border:"none", background:"grey", borderRadius:"50%", color:"black", position: "fixed", bottom:"2%", right:"2%"}}>
-      <i className="large material-icons">add_to_queue</i>
-      </button>
+    <button style={{height:"10%", width:"15vh", border:"none", position: "fixed", bottom:"2%", right:"2%"}}>
+      <img src="https://www.northernhealth.ca/sites/northern_health/files/health-information/health-topics/vaccine/images/immunization-book-appointment.jpg" style={{height:"100%", width:"100%", borderRadius:"50%"}}/>
+    </button>
     </Link>
   </div>
   </>
