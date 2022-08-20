@@ -1,14 +1,15 @@
 import React,{useState, useEffect} from "react";
 import axios from "axios";
-import { connect } from 'twilio-video';
 import { useNavigate} from "react-router-dom";
 import Loader from './Loader'
+import M from "materialize-css";
  
 const ViewAppointment = () => {
  
   const navigate = useNavigate();
   const [appointmentdata,setAppointmentdata] =useState([]);
   const [curdate,setCurdate]= useState();
+  const [curtime,setCurtime]=useState();
   const [load,setLoad]=useState(true);
  
   useEffect(() =>{  
@@ -20,6 +21,7 @@ const ViewAppointment = () => {
       }}).then((res)=>{
       console.log(res.data);
       setCurdate(convert(new Date()));
+      setCurtime(convert_time(new Date()));
       setAppointmentdata(res.data);
       setLoad(false);
     }).catch((err)=>{
@@ -27,7 +29,10 @@ const ViewAppointment = () => {
     })
   },[])
  
- 
+  function convert_time(str) {
+    return new Date(str).toTimeString().slice(0,8);
+  }
+  
    function convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -40,11 +45,6 @@ const ViewAppointment = () => {
     <>
     { load==false ?
       <section>
-          {
-              (appointmentdata==null) 
-              &&
-              <h1 style={{textAlign:"center"}}>No upcoming Appointments</h1> 
-          }
           <div className="container ">
             <div className="row">
               <div className="col">
@@ -79,18 +79,24 @@ const ViewAppointment = () => {
                              <td className="text-center"><strong>{appointment.mode}</strong></td>
                            
                             <td className="text-center">
-                              {
-                                appointment.mode==="audio" &&
-                                <button className="btn btn-primary btn-sm" onClick={()=>navigate(`/meet/audio/${appointment.link}`)}>
+                            { 
+                                appointment.mode==="audio" && 
+                                <button className="btn btn-primary btn-sm" onClick={()=>(convert(new Date(appointment.book_date))==curdate && curtime>=appointment.book_time)?navigate(`/meet/audio/${appointment.link}`):M.toast({html: "Cannot join before time",classes: "#f44336 red",})}>
+                                  Join
+                                </button>
+                              }
+                              { 
+                                appointment.mode==="video" && 
+                                <button className="btn btn-primary btn-sm" onClick={()=>(convert(new Date(appointment.book_date))==curdate && curtime>=appointment.book_time)?navigate(`${appointment.link}`):M.toast({html: "Cannot join before time",classes: "#f44336 red",})}>
                                   Join
                                 </button>
                               }
                               {
-                                appointment.mode!=="audio" &&
+                                appointment.mode==="physical" &&
                                 <a href={appointment.link} classtarget="_blank"><button
                                   className="btn btn-primary btn-sm"
                                 >
-                                  Join
+                                  Address
                                 </button></a>
                               }
                             </td>
