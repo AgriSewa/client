@@ -40,7 +40,7 @@ const Results=()=>{
                             <div className='card-image'>
                                 <img src={result.image} style={{height:'300px'}}/>
                             </div>
-                            <div className='card-content'>
+                            <div className='card-content' style={{textAlign:'center'}}>
                                 <h6><strong>Expert Name:</strong> {result.expertName}</h6>
                                 <h6><strong>Appointment Date:</strong> {date.toDateString()}</h6>
                                 <h6><strong>Problem:</strong> {result.problem}</h6>

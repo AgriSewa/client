@@ -160,7 +160,7 @@ const BookExpert = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12 col-md-12 col-12 col-sm-12">
-            {rating && <p className="h3 text-teal text-center mt-5">{parseFloat(rating).toFixed(1)} <Star/></p>}
+            {rating && <p className="h3 text-teal text-center mt-5">{parseFloat(rating).toFixed(1)} <Star fontSize="large"/></p>}
             <p className="h3 text-teal text-center mt-5">Available slots</p>
           </div>
         </div>
@@ -345,7 +345,7 @@ const BookExpert = () => {
                   }}
                 />
                 <span>
-                  <strong>Physical Meet</strong>
+                  <strong>Physical</strong>
                 </span>
               </label>
             </p>

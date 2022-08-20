@@ -25,6 +25,8 @@ const AudioMeet = () => {
                 room.on("participantDisconnected", handleDisconnectedParticipant);
                 window.addEventListener("pagehide", () => room.disconnect());
                 window.addEventListener("beforeunload", () => room.disconnect());
+                window.addEventListener("abort",() => room.disconnect());
+                window.addEventListener("popstate",() => room.disconnect());
                 }, error => {
                 console.error(`Unable to connect to Room: ${error.message}`);
             });
