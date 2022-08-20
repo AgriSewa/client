@@ -5,6 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Star from '@mui/icons-material/Star';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import M from "materialize-css";
@@ -159,7 +160,7 @@ const BookExpert = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12 col-md-12 col-12 col-sm-12">
-            {rating && <p className="h3 text-teal text-center mt-5">{rating.slice(0,3)} <i className="material-icons small">star</i></p>}
+            {rating && <p className="h3 text-teal text-center mt-5">{parseFloat(rating).toFixed(1)} <Star/></p>}
             <p className="h3 text-teal text-center mt-5">Available slots</p>
           </div>
         </div>

@@ -1,6 +1,8 @@
 import React,{useEffect, useState} from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import M from "materialize-css";
+
 
 const Register=()=>{
     const navigate=useNavigate()
@@ -33,7 +35,11 @@ const Register=()=>{
                 if(res.data.success) {
                     navigate(`/api/auth/verifyRegister/${phone}`)
                     console.log("Data submitted");
-                } 
+                }else
+                  M.toast({
+                    html: "Mobile already registered",
+                    classes: "#f44336 red",
+                  }); 
                 setPhone("");
                 setPosition({lat:"",long:""})          
             }).catch((e)=>{
