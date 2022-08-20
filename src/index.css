@@ -71,6 +71,29 @@ code {
   background: linear-gradient(45deg, darkgrey, #add8e6) !important;
 }
 
+.goog-tooltip {
+  display: none !important;
+}
+
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important; 
+  box-shadow: none !important;
+}
+
+#goog-gt-tt, .goog-te-balloon-frame{
+  display: none !important;
+} 
+
+.goog-text-highlight { 
+  background: none !important; 
+  box-shadow: none !important;
+}
+
 
 table {
   box-shadow: 0 0 2px #114444;
