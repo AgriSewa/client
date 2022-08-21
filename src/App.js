@@ -14,6 +14,7 @@ import './index.css'
 import { BrowserRouter,Routes,Route} from 'react-router-dom'
 import Feedback from './components/Feedback';
 import AudioMeet from './components/AudioMeet';
+import AI from './components/AI';
 
 
 const App=()=>{
@@ -23,6 +24,7 @@ const App=()=>{
         <NavBar />
         <Routes>
           <Route exact path='/' element={<Home />}></Route>
+          <Route exact path='/airesult' element={<AI />}></Route>
           <Route exact path='/farmer/ViewResults' element={<Results />}></Route>
           <Route exact path='/api/auth/login' element={<Login />}></Route>
           <Route exact path='/api/auth/register' element={<Register />}></Route>

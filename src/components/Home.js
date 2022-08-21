@@ -9,11 +9,31 @@ const Home = () => {
   const navigate = useNavigate();
   const [cbot,setCbot]=useState(false)
   const [img,setImg]= useState('https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg')
+  const [base64,setBase64]=useState("")
+  const [airesult,setAiresult]=useState({image:"",problem:"",remedy:""})
   useEffect(() => {
     if (!localStorage.getItem("user")) {
       navigate("/api/auth/login");
     }
   }, []);
+
+  useEffect(()=>{
+    if(airesult.image!=="" && airesult.problem!==""  && airesult.advice!=="" ){
+      axios({
+        url: '/AI/result',
+        method: "POST",
+        data: airesult,
+        headers: {
+          "auth": `Bearer ${localStorage.getItem("jwt")}`,
+        }
+      }).then((res)=>{
+        if(res.data.success) 
+          navigate("/airesult",{state:{airesult}})            
+      }).catch((e)=>{
+        console.log("Internal Server error");
+      })
+    }
+  },[airesult])
 
   function uuidv4() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -24,8 +44,19 @@ const Home = () => {
     );
   }
 
+
   const uploadImage=async(e)=>{
     setImg(URL.createObjectURL(e.target.files[0]))
+    var file = document.querySelector(
+      'input[type=file]')['files'][0];
+
+    var reader = new FileReader();
+      
+    reader.onload = function () {
+        setBase64(reader.result.replace("data:", "")
+            .replace(/^.+,/, ""))
+    }
+    reader.readAsDataURL(file);
   }
 
   const submit = async (e) => {
@@ -59,8 +90,21 @@ const Home = () => {
     .then((res) => {
         if (res.data.success) {
           console.log("Data submitted");
+          axios({
+            url: 'https://plant-disease-detector-pytorch.herokuapp.com/',
+            method: "POST",
+            data: {"image":base64}
+          }).then((res1)=>{
+            setAiresult({
+              image:res.data.image,
+              problem:res1.data.disease,
+              advice:res1.data.remedy
+            })
+          }).catch((e)=>{
+            console.log("Internal Server error");
+          })
           M.toast({
-            html: 'Image uploaded successfully',
+            html: 'Identifying disease please wait',
             classes: "#64dd17 light-green accent-4",
           });
         }
@@ -101,7 +145,7 @@ const Home = () => {
     </div>
   </div>
   <div>
-    {cbot && <iframe style={{position: "fixed", top:"15vh", left:"5%", zIndex:"1"}} width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/aee8bee0-0d74-46a3-8856-c3db0c2224c8"></iframe>}
+    {cbot && <iframe style={{position: "fixed", top:"15vh", left:"1%", zIndex:"1"}} width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/aee8bee0-0d74-46a3-8856-c3db0c2224c8"></iframe>}
     <button style={{height:"10%", width:"15vh", border:"none", position: "fixed", bottom:"2%", left:"2%"}} onClick={()=>setCbot(!cbot)}>
       <img src="https://www.cio.com/wp-content/uploads/2021/12/chatbot_ai_machine-learning_emerging-tech-100778305-orig-1.jpg?quality=50&strip=all" style={{height:"100%", width:"100%", borderRadius:"50%"}}/>
     </button>

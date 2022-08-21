@@ -48,8 +48,8 @@ h3 {
 
 #toast-container {
     top:2% !important;
-    right:4% !important;
-    transform: translate(11%,3%) !important;
+    right:6% !important;
+    transform: translate(8%,3%) !important;
 }
 
 .material-icons:hover {
@@ -63,4 +63,6 @@ h3 {
 
 body {
     top: 0px !important;
+    background-image: url('https://i.pinimg.com/736x/c4/f2/d7/c4f2d75d11899f36b84291e3c8c056fa.jpg') !important;
+    background-size: cover !important;
 }

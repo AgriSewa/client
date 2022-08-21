@@ -416,7 +416,7 @@ const BookExpert = () => {
                   }}
                 />
                 <span>
-                  <strong>Physical Meet</strong>
+                  <strong>Physical</strong>
                 </span>
               </label>
             </p>
@@ -486,7 +486,7 @@ const BookExpert = () => {
                   }}
                 />
                 <span>
-                  <strong>Physical Meet</strong>
+                  <strong>Physical</strong>
                 </span>
               </label>
             </p>
