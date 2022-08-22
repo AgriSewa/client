@@ -70,7 +70,6 @@ const Home = () => {
     }
     let inputElem = document.getElementById("imgfile");
     let file = inputElem.files[0];
-    console.log(file);
     let postid = uuidv4();
     let blob = file.slice(0, file.size, "image/jpeg");
     
@@ -90,22 +89,57 @@ const Home = () => {
     .then((res) => {
         if (res.data.success) {
           console.log("Data submitted");
-          axios({
-            url: 'https://plant-disease-detector-pytorch.herokuapp.com/',
-            method: "POST",
-            data: {"image":base64}
-          }).then((res1)=>{
-            setAiresult({
-              image:res.data.image,
-              problem:res1.data.disease,
-              advice:res1.data.remedy
-            })
-          }).catch((e)=>{
-            console.log("Internal Server error");
+          axios.get('https://api.sightengine.com/1.0/check.json', {
+            params: {
+              'url': res.data.image,
+              'models': 'properties',
+              'api_user': '65553899',
+              'api_secret': 'suWqjY6YuRNmCTXqLckU',
+            }
           })
-          M.toast({
-            html: 'Identifying disease please wait',
-            classes: "#64dd17 light-green accent-4",
+          .then((res2)=>{
+            if(res2.data.sharpness<0.7){
+              M.toast({
+                html: 'Image is blurry, Reupload',
+                classes: "#f44336 red",
+              });
+              return;
+            }
+            if(res2.data.brightness<0.4){
+              M.toast({
+                html: 'Image has low brightness, Reupload',
+                classes: "#f44336 red",
+              });
+              return;
+            }
+            if(res2.data.contrast<0.4){
+              M.toast({
+                html: 'Image has low contrast, Reupload',
+                classes: "#f44336 red",
+              });
+              return;
+            }
+            axios({
+              url: 'https://plant-disease-detector-pytorch.herokuapp.com/',
+              method: "POST",
+              data: {"image":base64}
+            }).then((res1)=>{
+              setAiresult({
+                image:res.data.image,
+                problem:res1.data.disease,
+                advice:res1.data.remedy
+              })
+            }).catch((e)=>{
+              console.log("Disease prediction error");
+            })
+            M.toast({
+              html: 'Identifying disease please wait',
+              classes: "#64dd17 light-green accent-4",
+            });
+          })
+          .catch((error)=> {
+            if (error.response) console.log(error.response.data);
+            else console.log(error.message);
           });
         }
         else{
