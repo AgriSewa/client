@@ -1,7 +1,9 @@
 import React,{useState, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import logo from './logo.png';
 import axios from "axios";
 import { connect } from 'twilio-video';
+
 
 const AudioMeet = () => {
     const { link } = useParams();
@@ -57,6 +59,7 @@ const AudioMeet = () => {
         // create a div for this participant's tracks
         const container=document.getElementById('video-container');
         const participantDiv = document.createElement("div");
+        // participantDiv.classList.add("hello");
         participantDiv.style.height='100px';
         participantDiv.style.width='100px';
         participantDiv.style.margin="1rem";
@@ -107,7 +110,12 @@ const AudioMeet = () => {
 
     return(
         <>
-            <div id="video-container"></div>
+    <div id="video-container"></div>
+    <div className="Icon" style={{overflow:"hidden"}}>
+      <header className="Icon-header">
+        <img src={logo} className="Icon-logo" alt="phone-icon" />
+      </header>
+    </div>
         </>
     )
 }

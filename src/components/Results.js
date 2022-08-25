@@ -46,6 +46,12 @@ const Results=()=>{
                                 <h6><strong>Problem:</strong> {result.problem}</h6>
                                 <p><strong>Advice:</strong> {result.advice}</p>
                                 {result.update_farmer==0 && <button className="btn waves-effect waves-light #00bcd4 cyan white-text text-lighten-3" onClick={()=>navigate(`/feedback/${result.id}`)}>Upload image of Problem</button>}
+                                {result.update_expert==1 &&<a href=
+                                {`https://www.google.com/maps/place/?q=nearby farmshop for ${result.problem}`}><button
+                                  className="btn btn-primary btn-sm"
+                                >
+                                  Nearby Stores
+                                </button></a>}
                             </div>
                         </div>
                     )

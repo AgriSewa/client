@@ -61,6 +61,12 @@ const ViewExpert = () => {
                             }}className=" ms-auto btn btn-secondary btn-sm">
                               Book Appointment
                             </button>
+                            <a href=
+                                {`tel:${ex.phone}`}><button
+                                  className="btn btn-primary btn-sm"
+                                >
+                                  Mobile
+                                </button></a>
                           </div>
                         </div>
                   )

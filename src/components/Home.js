@@ -18,7 +18,7 @@ const Home = () => {
   }, []);
 
   useEffect(()=>{
-    if(airesult.image!=="" && airesult.problem!==""  && airesult.advice!=="" ){
+    if(airesult.image!=="" && airesult.problem!==""  && airesult.advice!=="" ){ 
       axios({
         url: '/AI/result',
         method: "POST",
@@ -28,7 +28,7 @@ const Home = () => {
         }
       }).then((res)=>{
         if(res.data.success) 
-          navigate("/airesult",{state:{airesult}})            
+          navigate("/airesult",{state:{airesult}})           
       }).catch((e)=>{
         console.log("Internal Server error");
       })

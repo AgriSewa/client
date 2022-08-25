@@ -87,7 +87,7 @@ const ViewAppointment = () => {
                               }
                               { 
                                 appointment.mode==="video" && 
-                                <button className="btn btn-primary btn-sm" onClick={()=>(convert(new Date(appointment.book_date))==curdate && curtime>=appointment.book_time)?navigate(`${appointment.link}`):M.toast({html: "Cannot join before time",classes: "#f44336 red",})}>
+                                <button className="btn btn-primary btn-sm" onClick={()=>(convert(new Date(appointment.book_date))==curdate && curtime>=appointment.book_time)?window.open(`${appointment.link}`, '_blank'):M.toast({html: "Cannot join before time",classes: "#f44336 red",})}>
                                   Join
                                 </button>
                               }
