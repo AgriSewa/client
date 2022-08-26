@@ -4,7 +4,7 @@ import Home from '@material-ui/icons/Home';
 import Monitor from '@mui/icons-material/Monitor';
 import Poll from '@mui/icons-material/Poll';
 import Logout from '@mui/icons-material/Logout';
- 
+import SpaIcon from '@mui/icons-material/Spa';
 const NavBar=()=>{
     const navigate=useNavigate()
    
@@ -14,6 +14,7 @@ const NavBar=()=>{
                 <li><Link to="/"><Home /></Link></li>,
                 <li><Link to="/farmer/appointments"><Monitor /></Link></li>,
                 <li><Link to="/farmer/viewResults"><Poll /></Link></li>,
+                <li><Link to="/yield"><SpaIcon /></Link></li>,
                 <li><button className="btn waves-effect waves-light #f44336 red" style={{marginRight:'10px', width:'20px'}} onClick={()=>{
                     localStorage.clear()
                     navigate('/api/auth/login')

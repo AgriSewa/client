@@ -15,6 +15,17 @@ const Home = () => {
     if (!localStorage.getItem("user")) {
       navigate("/api/auth/login");
     }
+    axios({
+        url: '/yield',
+        method: "GET",
+        headers: {
+          "auth": `Bearer ${localStorage.getItem("jwt")}`,
+        }
+      }).then((res)=>{
+        console.log(res.data);          
+      }).catch((e)=>{
+        console.log("Internal Server error");
+      })
   }, []);
 
   useEffect(()=>{

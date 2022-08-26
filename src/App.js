@@ -15,6 +15,7 @@ import { BrowserRouter,Routes,Route} from 'react-router-dom'
 import Feedback from './components/Feedback';
 import AudioMeet from './components/AudioMeet';
 import AI from './components/AI';
+import Yield from './components/Yield';
 
 
 const App=()=>{
@@ -35,6 +36,7 @@ const App=()=>{
           <Route exact path='/farmer/viewexperts' element={<ViewExpert />}></Route>
           <Route exact path='/farmer/bookexperts/:expid' element={<BookExpert />}></Route>
           <Route exact path='/meet/audio/:link' element={<AudioMeet />}></Route>
+          <Route exact path='/yield' element={<Yield/>}></Route>
         </Routes>
       </BrowserRouter> 
     </>           
