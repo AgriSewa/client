@@ -24,7 +24,7 @@ const AI=()=>{
         <div className='gallery'>
             <div className='card home-card'>                     
                 <div className='card-image'>
-                    <img src={airesult.image} style={{height:'300px'}}/>
+                    <img src={`data:image/png;base64, ${airesult.image}`} style={{height:'300px'}}/>
                 </div>
                 <div className='card-content' style={{textAlign:'center'}}>
                     <h6><strong>Problem:</strong> {airesult.problem}</h6>

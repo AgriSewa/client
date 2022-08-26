@@ -71,12 +71,19 @@ const BookExpert = () => {
     await axios
       .get(`/bookslot/${date}/${time}/${mode}/${expid}`, config)
       .then((res) => {
-        M.toast({
-          html: "Slot booked successfully!",
-          classes: "#64dd17 light-green accent-4",
-        });
+        if(res.data.success){
+        // M.toast({
+        //   html: "Slot booked successfully!",
+        //   classes: "#64dd17 light-green accent-4",
+        // });
         localStorage.setItem("time", new Date().getTime());
         navigate('/farmer/appointments')
+      }else{
+          //   M.toast({
+          //   html: "Slot booking unsuccessful",
+          //   classes: "#f44336 red",
+          // }); 
+      }
       })
       .catch((err) => {
         M.toast({ html: "Try again!", classes: "#f44336 red" });

@@ -11,7 +11,7 @@ const NavBar=()=>{
     const renderList=()=>{
         if(localStorage.getItem("user")){
             return [
-                <li><Link to="/"><Home /></Link></li>,
+                // <li><Link to="/"><Home /></Link></li>,
                 <li><Link to="/farmer/appointments"><Monitor /></Link></li>,
                 <li><Link to="/farmer/viewResults"><Poll /></Link></li>,
                 <li><Link to="/yield"><SpaIcon /></Link></li>,
